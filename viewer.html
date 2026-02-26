@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <style>
+      body { margin: 0; }
+      model-viewer { width: 100vw; height: 100vh; }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const p = new URLSearchParams(location.search);
+      const glb = p.get("glb");     // Android / general 3D
+      const usdz = p.get("usdz");   // iOS Quick Look
+      const title = p.get("title") || "View in AR";
+      document.title = title;
+
+      const mv = document.createElement("model-viewer");
+      mv.setAttribute("src", glb || "");
+      if (usdz) mv.setAttribute("ios-src", usdz);
+
+      mv.setAttribute("ar", "");
+      mv.setAttribute("ar-modes", "scene-viewer quick-look webxr");
+      mv.setAttribute("ar-placement", "floor");
+      mv.setAttribute("camera-controls", "");
+      mv.setAttribute("shadow-intensity", "1");
+      mv.setAttribute("alt", title);
+
+      document.body.appendChild(mv);
+    </script>
+  </body>
+</html>
